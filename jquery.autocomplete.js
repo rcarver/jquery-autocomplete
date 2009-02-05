@@ -323,7 +323,8 @@ jQuery.autocomplete = function(input, options) {
       receiveData(q, data);
     // if an AJAX url has been supplied, try loading the data now
     } else if( (typeof options.url == "string") && (options.url.length > 0) ){
-      $.get(makeUrl(q), function(data) {
+      $[options.requestMethod](options.url, makeUrlParams(q), function(response) {
+        data = options.responseHandler ? options.responseHandler(response) : response;
         data = parseData(data);
         addToCache(q, data);
         receiveData(q, data);
@@ -342,6 +343,15 @@ jQuery.autocomplete = function(input, options) {
     return url;
   };
 
+  function makeUrlParams(q) {
+    var params = {};
+    for (var i in options.extraParams) {
+      params[i] = options.extraParams[i];
+    }
+    params[options.searchParamName] = q;
+    return params;
+  };
+
   function loadFromCache(q) {
     if (!q) return null;
     if (cache.data[q]) return cache.data[q];
@@ -358,7 +368,7 @@ jQuery.autocomplete = function(input, options) {
               csub[csub.length] = x;
             }
           }
-          return csub;
+          return (csub.length) ? csub : null;
         }
       }
     }
@@ -388,7 +398,8 @@ jQuery.autocomplete = function(input, options) {
     if (data) {
       findValueCallback(q, data);
     } else if( (typeof options.url == "string") && (options.url.length > 0) ){
-      $.get(makeUrl(q), function(data) {
+      $[options.requestMethod](options.url, makeUrlParams(q), function(response) {
+        data = options.responseHandler ? options.responseHandler(response) : response;
         data = parseData(data)
         addToCache(q, data);
         findValueCallback(q, data);
@@ -460,6 +471,12 @@ jQuery.fn.autocomplete = function(url, options, data) {
   options.url = url;
   // set some bulk local data
   options.data = ((typeof data == "object") && (data.constructor == Array)) ? data : null;
+
+  // Allow changing how the request is made. Defaults to $.get
+  options.requestMethod = options.requestMethod || "get";
+
+  // Allow changing the search param.
+  options.searchParamName = options.searchParamName || "q";
 
   // Set default values for required options
   options.inputClass = options.inputClass || "ac_input";
