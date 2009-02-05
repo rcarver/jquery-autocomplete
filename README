@@ -26,6 +26,10 @@ responseHandler
 searchParamName
   Change the query parameter containing the partially typed text. Defaults to
   'q'.
+  
+inputActiveClass
+  A class name applied to the input while the results list is visible.
+  Defaults to "ac_input_active".
 
 
 Following is the original documentation.

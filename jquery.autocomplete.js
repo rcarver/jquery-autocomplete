@@ -112,8 +112,15 @@ jQuery.autocomplete = function(input, options) {
 
   function onChange() {
     // ignore if the following keys are pressed: [del] [shift] [capslock]
-    if( lastKeyPressCode == 46 || (lastKeyPressCode > 8 && lastKeyPressCode < 32) ) return $results.hide();
+    if( lastKeyPressCode == 46 || (lastKeyPressCode > 8 && lastKeyPressCode < 32) ) {
+      $input.removeClass(options.inputActiveClass);
+      $results.hide();
+      return
+    }
     var v = $input.val();
+    if (v.length == 0) {
+      $input.removeClass(options.inputActiveClass);
+    }
     if (v == prev) return;
     prev = v;
     if (v.length >= options.minChars) {
@@ -225,6 +232,7 @@ jQuery.autocomplete = function(input, options) {
       top: (pos.y + input.offsetHeight) + "px",
       left: pos.x + "px"
     }).show();
+    $input.addClass(options.inputActiveClass);
   };
 
   function hideResults() {
@@ -236,6 +244,7 @@ jQuery.autocomplete = function(input, options) {
     if (timeout) clearTimeout(timeout);
     $input.removeClass(options.loadingClass);
     if ($results.is(":visible")) {
+      $input.removeClass(options.inputActiveClass);
       $results.hide();
     }
     if (options.mustMatch) {
@@ -480,6 +489,7 @@ jQuery.fn.autocomplete = function(url, options, data) {
 
   // Set default values for required options
   options.inputClass = options.inputClass || "ac_input";
+  options.inputActiveClass = options.inputActiveClass || "ac_input_active";
   options.resultsClass = options.resultsClass || "ac_results";
   options.lineSeparator = options.lineSeparator || "\n";
   options.cellSeparator = options.cellSeparator || "|";
