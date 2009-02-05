@@ -99,7 +99,11 @@ Example: $("#input_box").autocomplete("my_autocomplete_backend.php", { minChars:
 These options are available:
 
 autoFill (default value: false)
-  Whether or not the first match should be used to autofill in the input element. As you type, the first match will be filled in the input element as a best guess as to what you're looking for. Text you did not manually type will be pre-selected so typing the next character will make the guess go away and the next best match will be populated.
+  Whether or not the first match should be used to autofill in the input
+  element. As you type, the first match will be filled in the input element as
+  a best guess as to what you're looking for. Text you did not manually type
+  will be pre-selected so typing the next character will make the guess go
+  away and the next best match will be populated.
 
 inputClass (default value: "ac_input")
   This class will be added to the input box.
@@ -207,20 +211,28 @@ If you want to do more with your autocompleter, you can change some options on t
 The autocompleter is accessed as an attribute of the input box.
 
 Example:
-// set the autocompleter
-var ac = $("#input_box").autocomplete("my_autocomplete_backend.php");
-// would look up the value of the autocomplete box based on the text in the input element
-ac[0].autocompleter.findValue();
+  // set the autocompleter
+  var ac = $("#input_box").autocomplete("my_autocomplete_backend.php");
+  // would look up the value of the autocomplete box based on the text in the input element
+  ac[0].autocompleter.findValue();
 
 There following functions that can be called to influence the behaviour at run-time:
 
 findValue()
-  This will examine the value currently in the input element and look it's value up to see if it can find a matching value. This function can potentially perform an AJAX operation, therefore the findValue() function does not return a value. Instead, you need to specific a onFindValue callback function that will run. This method is valuable if you need to set the Autocomplete input element to a value via JavaScript and the "value" of the text field is mapped to extended properties stored in the LI element's "extra" property.
+  This will examine the value currently in the input element and look it's
+  value up to see if it can find a matching value. This function can
+  potentially perform an AJAX operation, therefore the findValue() function
+  does not return a value. Instead, you need to specific a onFindValue
+  callback function that will run. This method is valuable if you need to set
+  the Autocomplete input element to a value via JavaScript and the "value" of
+  the text field is mapped to extended properties stored in the LI element's
+  "extra" property.
 
 flushCache()
   This flushes the cache.
 
 setExtraParams(obj)
-  This sets the extra parameters of the autocompleter to obj (which should be a JavaScript object, see above).
+  This sets the extra parameters of the autocompleter to obj (which should be
+  a JavaScript object, see above).
 
 It's often wise to flush the cache after calling setExtraParameters.
