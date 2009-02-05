@@ -192,7 +192,7 @@ formatItem (default value: none)
   of results, and the number of items in the list of results. See the source
   code of http://www.dyve.net/jquery?autocomplete for an example.
 
-onSelectItem (default value: none)
+onItemSelect (default value: none)
   A JavaScript function that will be called when an item is selected. The
   autocompleter will specify a single argument, being the LI element selected.
   This LI element will have an attribute "extra" that contains an array of all
@@ -202,7 +202,7 @@ onSelectItem (default value: none)
 onFindValue (default value: none)
   A JavaScript function that will be called when the findValue() method is
   called. The function will be passed the select LI element--just like the
-  onSelectItem function is.
+  onItemSelect function is.
 
 More advanced options
 =====================
